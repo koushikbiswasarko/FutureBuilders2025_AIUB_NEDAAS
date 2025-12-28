@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>nedaashealthcare - User</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#2563eb" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">N</div>
+      <div>
+        <h1>nedaashealthcare</h1>
+        <p class="subtitle" data-i18n="user.subtitle">Offline-first medical help for rural & hill regions</p>
+        <span class="badge" data-i18n="user.badge">User Portal</span>
+      </div>
+    </div>
+
+    <div class="topActions">
+      <select id="tierSelect" class="btn" aria-label="tier">
+        <option value="free" data-i18n="tier.free">Free</option>
+        <option value="premium" data-i18n="tier.premium">Premium</option>
+      </select>
+
+      <button class="btn" id="btnLang" data-i18n="toggle.bn">বাংলা</button>
+      <a class="btn" href="admin.html" data-i18n="nav.admin">Admin Portal</a>
+
+      <span id="netDot" class="dot offline" aria-hidden="true"></span>
+      <span id="netText" class="small" data-i18n="net.offline">Offline</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 data-i18n="danger.title">Danger Signs Checklist</h2>
+      <p class="muted" data-i18n="danger.desc">If any are checked, urgency automatically becomes Emergency.</p>
+
+      <div class="grid2">
+        <div>
+          <h3 data-i18n="danger.preg.title">Pregnancy</h3>
+          <label><input type="checkbox" class="dangerChk" value="preg_bleeding"> <span data-i18n="danger.preg.1">Heavy bleeding</span></label><br/>
+          <label><input type="checkbox" class="dangerChk" value="preg_convulsion"> <span data-i18n="danger.preg.2">Convulsion / fainting</span></label><br/>
+          <label><input type="checkbox" class="dangerChk" value="preg_severe_headache"> <span data-i18n="danger.preg.3">Severe headache / blurred vision</span></label><br/>
+          <label><input type="checkbox" class="dangerChk" value="preg_no_movement"> <span data-i18n="danger.preg.4">No fetal movement</span></label>
+        </div>
+
+        <div>
+          <h3 data-i18n="danger.child.title">Child</h3>
+          <label><input type="checkbox" class="dangerChk" value="child_unconscious"> <span data-i18n="danger.child.1">Unconscious / very sleepy</span></label><br/>
+          <label><input type="checkbox" class="dangerChk" value="child_not_drinking"> <span data-i18n="danger.child.2">Not drinking / repeated vomiting</span></label><br/>
+          <label><input type="checkbox" class="dangerChk" value="child_fast_breath"> <span data-i18n="danger.child.3">Fast breathing / chest indrawing</span></label><br/>
+          <label><input type="checkbox" class="dangerChk" value="child_convulsion"> <span data-i18n="danger.child.4">Convulsion</span></label>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <h3 data-i18n="danger.breath.title">Breathing & Severe</h3>
+        <label><input type="checkbox" class="dangerChk" value="breath_blue_lips"> <span data-i18n="danger.breath.1">Blue lips / severe breathing</span></label><br/>
+        <label><input type="checkbox" class="dangerChk" value="breath_chest_pain"> <span data-i18n="danger.breath.2">Chest pain / heart warning</span></label><br/>
+        <label><input type="checkbox" class="dangerChk" value="severe_bleeding"> <span data-i18n="danger.breath.3">Severe injury / bleeding</span></label>
+      </div>
+
+      <p id="dangerAutoNote" class="muted" style="margin-top:10px;"></p>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="req.title">Medical Help Request</h2>
+      <p class="muted" data-i18n="req.desc">
+        Works offline. Saved on this device. Later share by WhatsApp or JSON export.
+      </p>
+
+      <form id="helpForm" class="form">
+        <div class="field">
+          <label data-i18n="form.name.label">Patient Name</label>
+          <input id="patientName" required data-i18n-ph="form.name.ph" placeholder="e.g., Rahima Begum"/>
+        </div>
+
+        <div class="field">
+          <label data-i18n="form.age.label">Age</label>
+          <input id="patientAge" type="number" min="0" required data-i18n-ph="form.age.ph" placeholder="e.g., 35"/>
+        </div>
+
+        <div class="field">
+          <label data-i18n="form.phone.label">Phone (optional)</label>
+          <input id="patientPhone" data-i18n-ph="form.phone.ph" placeholder="e.g., 01XXXXXXXXX"/>
+        </div>
+
+        <div class="field">
+          <label data-i18n="form.loc.label">Location (village/union)</label>
+          <input id="patientLocation" required data-i18n-ph="form.loc.ph" placeholder="e.g., Sajek, Rangamati"/>
+        </div>
+
+        <div class="field">
+          <label data-i18n="form.type.label">Problem Type</label>
+          <select id="problemType" required>
+            <option value="" data-i18n="form.type.select">Select…</option>
+            <option data-i18n="type.1">Fever / infection</option>
+            <option data-i18n="type.2">Pregnancy / maternal</option>
+            <option data-i18n="type.3">Child health</option>
+            <option data-i18n="type.4">Injury / accident</option>
+            <option data-i18n="type.5">Breathing / asthma</option>
+            <option data-i18n="type.6">Diarrhea / dehydration</option>
+            <option data-i18n="type.7">Chronic (diabetes/BP)</option>
+            <option data-i18n="type.8">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label data-i18n="form.urg.label">Urgency</label>
+          <div class="radioRow">
+            <label class="pill"><input type="radio" name="urgency" value="Normal" checked/> <span data-i18n="urg.1">Normal</span></label>
+            <label class="pill"><input type="radio" name="urgency" value="Urgent"/> <span data-i18n="urg.2">Urgent</span></label>
+            <label class="pill"><input type="radio" name="urgency" value="Emergency"/> <span data-i18n="urg.3">Emergency</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-i18n="form.sym.label">Symptoms Details</label>
+          <textarea id="symptoms" rows="4" required data-i18n-ph="form.sym.ph"
+            placeholder="Write what happened, when it started, danger signs etc."></textarea>
+        </div>
+
+        <div class="grid2">
+          <button class="btn primary" type="submit" data-i18n="btn.save">Save Request (Offline)</button>
+          <button class="btn" type="button" id="btnUseLocation" data-i18n="btn.gps">Add GPS</button>
+        </div>
+      </form>
+
+      <div class="notice" style="margin-top:12px;">
+        <h3 style="margin:0 0 6px;" data-i18n="live.title">Live Consulting</h3>
+        <p class="muted" style="margin:0 0 10px;" data-i18n="live.desc">
+          If WhatsApp signal exists, contact a health worker instantly.
+        </p>
+        <div class="grid2">
+          <button class="btn success" id="btnWhatsApp" data-i18n="btn.wa.free">WhatsApp (Free)</button>
+          <button class="btn premium" id="btnWhatsAppPremium" data-i18n="btn.wa.premium">Premium: Doctor Call</button>
+        </div>
+        <p class="small" data-i18n="live.note">Even weak internet may work if WhatsApp works.</p>
+      </div>
+
+      <div class="notice warn" style="margin-top:12px;">
+        <h3 style="margin:0 0 6px;" data-i18n="lab.title">Lab Test Suggestions (General)</h3>
+        <p class="muted" style="margin:0 0 10px;" data-i18n="lab.desc">
+          General guidance only—not diagnosis. A clinician confirms final tests.
+        </p>
+        <button class="btn premium" id="btnLabSuggest" data-i18n="btn.lab">Get Suggestions (Premium)</button>
+        <div id="labBox" class="box hidden"></div>
+      </div>
+
+      <div class="notice" style="margin-top:12px;">
+        <h3 style="margin:0 0 6px;" data-i18n="rx.title">Prescription</h3>
+        <p class="muted" style="margin:0 0 10px;" data-i18n="rx.desc">
+          Only licensed doctors can issue prescriptions. You can request a review.
+        </p>
+        <button class="btn premium" id="btnRxRequest" data-i18n="btn.rx">Request Prescription Review (Premium)</button>
+        <div id="rxBox" class="box hidden"></div>
+      </div>
+
+      <div class="notice" style="margin-top:12px;">
+        <h3 style="margin:0 0 6px;" data-i18n="aidoc.title">AI Doctor (ChatGPT)</h3>
+        <p class="muted" style="margin:0 0 10px;" data-i18n="aidoc.desc">
+          Opens ChatGPT for AI-based guidance. Not a replacement for doctors.
+        </p>
+        <button class="btn premium" id="btnOpenChatGPT" data-i18n="btn.chatgpt">Open ChatGPT</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="grid2">
+        <button class="btn" id="btnViewQueue" data-i18n="btn.view">View Saved Requests</button>
+        <button class="btn" id="btnExport" data-i18n="btn.export">Export JSON (Share)</button>
+      </div>
+
+      <div id="queueBox" class="box hidden"></div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="sos.title">Emergency & First Aid</h2>
+      <div class="grid2">
+        <button class="btn danger" id="btnEmergency" data-i18n="btn.emg">Emergency Numbers</button>
+        <button class="btn" id="btnFirstAid" data-i18n="btn.fa">First Aid</button>
+      </div>
+
+      <div id="emergencyBox" class="box hidden">
+        <h3 data-i18n="sos.emg.h">Emergency Numbers (Bangladesh)</h3>
+        <ul>
+          <li><strong>999</strong> — <span data-i18n="sos.emg.1">National Emergency</span></li>
+          <li><strong>16263</strong> — <span data-i18n="sos.emg.2">Health Hotline</span></li>
+          <li><strong>333</strong> — <span data-i18n="sos.emg.3">Govt Info Service</span></li>
+        </ul>
+      </div>
+
+      <div id="firstAidBox" class="box hidden">
+        <h3 data-i18n="sos.fa.h">First Aid (Offline)</h3>
+        <ol>
+          <li><strong data-i18n="sos.fa.t1">Bleeding:</strong> <span data-i18n="sos.fa.1">Press firmly with clean cloth.</span></li>
+          <li><strong data-i18n="sos.fa.t2">Fever:</strong> <span data-i18n="sos.fa.2">Give water/ORS, rest, keep cool.</span></li>
+          <li><strong data-i18n="sos.fa.t3">Breathing:</strong> <span data-i18n="sos.fa.3">Sit upright, loosen clothing.</span></li>
+          <li><strong data-i18n="sos.fa.t4">Snake bite:</strong> <span data-i18n="sos.fa.4">Keep limb still. No cutting/sucking.</span></li>
+          <li><strong data-i18n="sos.fa.t5">Unconscious:</strong> <span data-i18n="sos.fa.5">Arrange urgent transport to facility.</span></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="muted" data-i18n="footer">nedaashealthcare | Offline-first | Built for hill tracts & rural Bangladesh</p>
+  </footer>
+
+  <script type="module" src="user.js"></script>
+</body>
+</html>

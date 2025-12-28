@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>NEDAAS HealthCare - Admin</title>
+  <link rel="stylesheet" href="style.css"/>
+  <meta name="theme-color" content="#2563eb" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">N</div>
+      <div>
+        <h1>NEDAAS HealthCare</h1>
+        <p class="subtitle" data-i18n="admin.subtitle">Admin Dashboard (triage + directory + notes)</p>
+        <span class="badge" data-i18n="admin.badge">Admin Portal</span>
+      </div>
+    </div>
+
+    <div class="topActions">
+      <button class="btn" id="btnTheme" type="button">Dark Mode</button>
+      <button class="btn" id="btnLang" type="button" data-i18n="toggle.bn">বাংলা</button>
+      <a class="btn" href="user.html" data-i18n="nav.user">User Portal</a>
+
+      <span id="netDot" class="dot offline" aria-hidden="true"></span>
+      <span id="netText" class="small" data-i18n="net.offline">Offline</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 data-i18n="admin.dash">Admin Dashboard</h2>
+
+      <div class="grid2" style="margin-top:10px;">
+        <button class="btn" id="btnImportCases" data-i18n="admin.import">Import Cases (JSON)</button>
+        <button class="btn" id="btnExportAll" data-i18n="admin.exportdb">Export Admin Database (JSON)</button>
+      </div>
+
+      <input id="fileInput" type="file" accept="application/json" style="display:none;"/>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="admin.dir.title">Manage Offline Directory</h2>
+      <p class="muted" data-i18n="admin.dir.desc">Store verified contacts for offline use.</p>
+
+      <form id="dirForm" class="form">
+        <div class="field">
+          <label data-i18n="admin.dir.name">Name</label>
+          <input id="dirName" required data-i18n-ph="admin.dir.name.ph" placeholder="e.g., Upazila Health Complex"/>
+        </div>
+
+        <div class="field">
+          <label data-i18n="admin.dir.area">Area</label>
+          <input id="dirArea" required data-i18n-ph="admin.dir.area.ph" placeholder="e.g., Rangamati"/>
+        </div>
+
+        <div class="field">
+          <label data-i18n="admin.dir.phone">Phone/Contact</label>
+          <input id="dirPhone" required data-i18n-ph="admin.dir.phone.ph" placeholder="e.g., 01XXXXXXXXX"/>
+        </div>
+
+        <div class="field">
+          <label data-i18n="admin.dir.note">Note</label>
+          <input id="dirNote" data-i18n-ph="admin.dir.note.ph" placeholder="e.g., Emergency referral"/>
+        </div>
+
+        <button class="btn primary" type="submit" data-i18n="admin.dir.add">Add Directory Entry</button>
+      </form>
+
+      <div class="divider"></div>
+      <div id="dirList" class="directory"></div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="admin.cases.title">Case List (Imported)</h2>
+      <p class="muted" data-i18n="admin.cases.desc">Import JSON exported from User Portal.</p>
+
+      <div class="grid2">
+        <button class="btn" id="btnCaseExport" data-i18n="admin.cases.export">Export Case List</button>
+        <button class="btn danger" id="btnClearCases" data-i18n="admin.cases.clear">Clear Case List</button>
+      </div>
+
+      <div id="caseListBox" class="box" style="margin-top:10px;"></div>
+    </section>
+  </main>
+
+  <div id="adminLock" class="lock hidden">
+    <div class="lockCard">
+      <h2 data-i18n="login.title">Admin Login</h2>
+      <p class="muted" data-i18n="login.desc">Use demo credentials to access the admin portal.</p>
+
+      <div class="field">
+        <label data-i18n="login.user">Username</label>
+        <input id="adminUser" placeholder="admin"/>
+      </div>
+
+      <div class="field">
+        <label data-i18n="login.pass">Password</label>
+        <input id="adminPass" type="password" placeholder="admin"/>
+      </div>
+
+      <div class="grid2">
+        <button class="btn primary" id="btnLogin" data-i18n="login.btn">Login</button>
+        <button class="btn" id="btnLogout" data-i18n="login.logout">Logout</button>
+      </div>
+
+      <p class="muted" id="lockMsg" style="margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
