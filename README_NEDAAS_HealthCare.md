@@ -96,30 +96,9 @@ In `user.js`:
 - ChatGPT link:
   - `CHATGPT_LINK`
 
-You can change these constants to match your deployment.
-
 ## 🗃️ Data Storage
 
 All data is stored locally in the browser:
 - Requests (user) are saved in **localStorage**.
 - Admin session login is stored in **sessionStorage**.
 - Theme and language preferences are stored in **localStorage**.
-
-Exports are JSON files downloaded to the device.
-
-## 🚀 Deploy
-
-This is a static site. You can deploy to:
-- GitHub Pages
-- Netlify / Vercel (static)
-- Any Nginx/Apache static host
-
-Make sure the app is served over HTTPS if you want best PWA + geolocation behavior.
-
-## 📜 License
-
-Add your desired license (MIT/Apache-2.0/etc.) in a `LICENSE` file.
-
----
-
-If you want, tell me your GitHub repo name and whether you want **GitHub Pages** deployment instructions added, and I’ll tailor this README exactly for your repo.
