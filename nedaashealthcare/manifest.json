@@ -1,20 +1,12 @@
 {
-  "name": "nedaashealthcare",
-  "short_name": "nedaashealth",
+  "name": "NEDAAS HealthCare",
+  "short_name": "NEDAAS HealthCare",
   "start_url": "/user.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",
-  "icons": [
-    {
-      "src": "LogoMain.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "LogoMain.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+"icons": [
+  { "src": "./LogoMain-192.png?v=3", "sizes": "192x192", "type": "image/png" },
+  { "src": "./LogoMain-512.png?v=3", "sizes": "512x512", "type": "image/png" }
+]
 }

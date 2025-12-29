@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>nedaashealthcare - User</title>
+  <title>NEDAAS HealthCare - User</title>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="manifest" href="manifest.json"/>
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2563eb" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <div class="logo">N</div>
+      <img class="logo" src="./LogoMain-192.png" alt="NEDAAS HealthCare logo" />
       <div>
-        <h1>nedaashealthcare</h1>
+        <h1>NEDAAS HealthCare</h1>
         <p class="subtitle" data-i18n="user.subtitle">Offline-first medical help for rural & hill regions</p>
         <span class="badge" data-i18n="user.badge">User Portal</span>
       </div>
@@ -25,8 +25,10 @@
         <option value="premium" data-i18n="tier.premium">Premium</option>
       </select>
 
-      <button class="btn" id="btnLang" data-i18n="toggle.bn">বাংলা</button>
-      <a class="btn" href="admin.html" data-i18n="nav.admin">Admin Portal</a>
+      <button class="btn" id="btnTheme" type="button">Dark Mode</button>
+      <button class="btn" id="btnLang" type="button" data-i18n="toggle.bn">বাংলা</button>
+
+      <button class="btn" id="goAdminBtn" type="button" data-i18n="nav.admin">Admin Portal</button>
 
       <span id="netDot" class="dot offline" aria-hidden="true"></span>
       <span id="netText" class="small" data-i18n="net.offline">Offline</span>
@@ -34,6 +36,7 @@
   </header>
 
   <main class="container">
+
     <section class="card">
       <h2 data-i18n="danger.title">Danger Signs Checklist</h2>
       <p class="muted" data-i18n="danger.desc">If any are checked, urgency automatically becomes Emergency.</p>
@@ -97,14 +100,14 @@
           <label data-i18n="form.type.label">Problem Type</label>
           <select id="problemType" required>
             <option value="" data-i18n="form.type.select">Select…</option>
-            <option data-i18n="type.1">Fever / infection</option>
-            <option data-i18n="type.2">Pregnancy / maternal</option>
-            <option data-i18n="type.3">Child health</option>
-            <option data-i18n="type.4">Injury / accident</option>
-            <option data-i18n="type.5">Breathing / asthma</option>
-            <option data-i18n="type.6">Diarrhea / dehydration</option>
-            <option data-i18n="type.7">Chronic (diabetes/BP)</option>
-            <option data-i18n="type.8">Other</option>
+            <option value="Fever / infection" data-i18n="type.1">Fever / infection</option>
+            <option value="Pregnancy / maternal" data-i18n="type.2">Pregnancy / maternal</option>
+            <option value="Child health" data-i18n="type.3">Child health</option>
+            <option value="Injury / accident" data-i18n="type.4">Injury / accident</option>
+            <option value="Breathing / asthma" data-i18n="type.5">Breathing / asthma</option>
+            <option value="Diarrhea / dehydration" data-i18n="type.6">Diarrhea / dehydration</option>
+            <option value="Chronic (diabetes/BP)" data-i18n="type.7">Chronic (diabetes/BP)</option>
+            <option value="Other" data-i18n="type.8">Other</option>
           </select>
         </div>
 
@@ -204,12 +207,45 @@
         </ol>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
-    <p class="muted" data-i18n="footer">nedaashealthcare | Offline-first | Built for hill tracts & rural Bangladesh</p>
+    <p class="muted" data-i18n="footer">NEDAAS HealthCare | Offline-first | Built for hill tracts & rural Bangladesh</p>
   </footer>
 
+  <!-- Admin Login Overlay (User-side) -->
+  <div id="userAdminLock" class="lock hidden" role="dialog" aria-modal="true">
+    <div class="lockCard">
+      <h2 data-i18n="login.title">Admin Login</h2>
+      <p class="muted" data-i18n="login.desc">Use demo credentials to access the admin portal.</p>
+
+      <div class="field">
+        <label data-i18n="login.user">Username</label>
+        <input id="userAdminUser" autocomplete="username" placeholder="admin"/>
+      </div>
+
+      <div class="field">
+        <label data-i18n="login.pass">Password</label>
+        <input id="userAdminPass" type="password" autocomplete="current-password" placeholder="admin"/>
+      </div>
+
+      <div class="grid2">
+        <button class="btn primary" id="userAdminLoginBtn" data-i18n="login.btn">Login</button>
+        <button class="btn" id="userAdminCancelBtn" data-i18n="login.cancel">Cancel</button>
+      </div>
+
+      <p class="muted" id="userAdminLockMsg" style="margin-top:10px;"></p>
+    </div>
+  </div>
+
   <script type="module" src="user.js"></script>
+
+  <script>
+  if ('serviceWorker' in navigator) {
+    // This tells the browser to use your 'service-worker.js' file
+    navigator.serviceWorker.register('service-worker.js');
+  }
+</script>
 </body>
 </html>

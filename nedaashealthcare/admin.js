@@ -1,10 +1,36 @@
-import { applyI18n, toggleLang, tr, AdminDirectoryStore, AdminCasesStore, escapeHtml, downloadJson, currentLang } from "./common.js";
+import {
+  applyI18n, toggleLang, tr,
+  AdminDirectoryStore, AdminCasesStore,
+  escapeHtml, downloadJson, currentLang
+} from "./common.js";
 
 applyI18n();
-const btnLang = document.getElementById("btnLang");
-if (btnLang) btnLang.addEventListener("click", toggleLang);
 
-// Network indicator
+document.getElementById("btnLang").addEventListener("click", toggleLang);
+
+/* Theme */
+const THEME_KEY = "nd_theme_v1";
+function getTheme(){ return localStorage.getItem(THEME_KEY) || "light"; }
+function setTheme(t){
+  localStorage.setItem(THEME_KEY, t);
+  document.body.setAttribute("data-theme", t);
+  updateThemeButton();
+}
+function updateThemeButton(){
+  const btn = document.getElementById("btnTheme");
+  if (!btn) return;
+  const t = getTheme();
+  if (currentLang() === "bn"){
+    btn.textContent = (t === "dark") ? "লাইট মোড" : "ডার্ক মোড";
+  } else {
+    btn.textContent = (t === "dark") ? "Light Mode" : "Dark Mode";
+  }
+}
+document.body.setAttribute("data-theme", getTheme());
+updateThemeButton();
+document.getElementById("btnTheme").addEventListener("click", () => setTheme(getTheme() === "dark" ? "light" : "dark"));
+
+/* Network */
 const netDot = document.getElementById("netDot");
 const netText = document.getElementById("netText");
 function updateNet(){
@@ -17,7 +43,7 @@ window.addEventListener("online", updateNet);
 window.addEventListener("offline", updateNet);
 updateNet();
 
-// Admin login (fixed demo credentials)
+/* Admin login */
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "admin";
 const SESSION_KEY = "nd_admin_session_v1";
@@ -70,13 +96,12 @@ btnLogout.addEventListener("click", () => {
   showLock("");
 });
 
-// Directory management
+/* Directory */
 const dirForm = document.getElementById("dirForm");
 const dirList = document.getElementById("dirList");
 
 dirForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
   if (!isLoggedIn()) return showLock("");
 
   const entry = {
@@ -120,19 +145,28 @@ window.delDir = (id) => {
   renderDirectory();
 };
 
-// Cases
+/* Cases */
 const caseListBox = document.getElementById("caseListBox");
 const btnCaseExport = document.getElementById("btnCaseExport");
 const btnClearCases = document.getElementById("btnClearCases");
 
+function statusBn(status){
+  const m = {
+    "Imported":"ইমপোর্টেড",
+    "In Progress":"চলমান",
+    "Resolved":"সমাধান"
+  };
+  return m[status] || status;
+}
+
 function renderCases(){
   const list = AdminCasesStore.load();
+  const langBn = currentLang() === "bn";
+
   if (!list.length){
-    caseListBox.innerHTML = `<p class="muted">${currentLang()==="bn" ? "এখনো কোনো কেস নেই।" : "No cases yet."}</p>`;
+    caseListBox.innerHTML = `<p class="muted">${langBn ? "এখনো কোনো কেস নেই।" : "No cases yet."}</p>`;
     return;
   }
-
-  const langBn = currentLang() === "bn";
 
   caseListBox.innerHTML = `
     <table class="table">
@@ -152,7 +186,7 @@ function renderCases(){
             <td>
               <strong>${escapeHtml(c.name)}</strong><br/>
               <span class="small">${escapeHtml(c.when)}</span><br/>
-              <span class="small"><strong>Status:</strong> ${escapeHtml(c.status || "Imported")}</span>
+              <span class="small"><strong>${langBn ? "স্ট্যাটাস" : "Status"}:</strong> ${escapeHtml(langBn ? statusBn(c.status || "Imported") : (c.status || "Imported"))}</span>
             </td>
             <td>${escapeHtml(c.loc)}</td>
             <td>${escapeHtml(c.type)}<br/><span class="badge">${escapeHtml(c.urg)}</span></td>
@@ -214,7 +248,7 @@ btnClearCases.addEventListener("click", () => {
   renderCases();
 });
 
-// Import/export
+/* Import/Export */
 const btnImportCases = document.getElementById("btnImportCases");
 const btnExportAll = document.getElementById("btnExportAll");
 const fileInput = document.getElementById("fileInput");

@@ -52,12 +52,12 @@ body{
 
 .brand{display:flex; align-items:center; gap:12px;}
 .logo{
-  width:44px;height:44px;border-radius:14px;
-  display:grid; place-items:center;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color:white; font-weight:900;
-  box-shadow: var(--shadow);
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: contain;
 }
+
 
 h1{font-size:18px; margin:0;}
 .subtitle{margin:2px 0 0; font-size:12px; color:var(--muted);}
@@ -92,7 +92,7 @@ h3{margin:10px 0 6px; font-size:14px;}
 .grid2{display:grid; grid-template-columns:1fr; gap:10px;}
 @media(min-width:720px){ .grid2{grid-template-columns:1fr 1fr;} }
 
-/* -------- Button visibility fix in dark mode -------- */
+/* Buttons */
 .btn{
   border:1px solid var(--border);
   background: rgba(255,255,255,0.90);
@@ -104,8 +104,8 @@ h3{margin:10px 0 6px; font-size:14px;}
   transition: transform 0.06s ease, filter 0.15s ease;
 }
 body[data-theme="dark"] .btn{
-  background: rgba(255,255,255,0.08);      /* stronger contrast than before */
-  border-color: rgba(148,163,184,0.22);    /* visible border */
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(148,163,184,0.22);
   color: var(--text);
 }
 
@@ -124,15 +124,13 @@ body[data-theme="dark"] .btn{
   background: linear-gradient(135deg, var(--success), #4ade80);
   color:white; border-color:transparent;
 }
-
-/* Premium button: FIX TEXT COLOR IN DARK MODE */
 .btn.premium{
   background: linear-gradient(135deg, #f59e0b, #fb7185);
   color:#0b1220; border-color:transparent;
 }
 body[data-theme="dark"] .btn.premium{
-  color:#ffffff;                            /* crucial fix */
-  text-shadow: 0 1px 2px rgba(0,0,0,0.45);  /* extra readability */
+  color:#ffffff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.45);
 }
 
 .form{display:grid; gap:10px; margin-top:10px;}
@@ -185,7 +183,7 @@ body[data-theme="dark"] .box{
   background: rgba(2,6,23,0.25);
   border-color: rgba(148,163,184,0.20);
 }
-.hidden{display:none;}
+.hidden { display: none !important; }
 
 .divider{height:1px; background:var(--border); margin:14px 0;}
 
@@ -244,7 +242,7 @@ body[data-theme="dark"] .table tr:hover td{background:rgba(255,255,255,0.03);}
 
 .footer{text-align:center; padding:16px;}
 
-/* Admin login overlay */
+/* Overlay lock screen */
 .lock{
   position:fixed; inset:0;
   background:rgba(15,23,42,0.65);
@@ -252,15 +250,35 @@ body[data-theme="dark"] .table tr:hover td{background:rgba(255,255,255,0.03);}
   padding:16px;
   z-index:9999;
 }
+body[data-theme="dark"] .lock{
+  background: rgba(0,0,0,0.55);
+}
+
 .lockCard{
-  width:min(520px, 100%);
+  width:min(920px, 100%);
   background:rgba(255,255,255,0.95);
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px;
+  border-radius:20px;
+  padding:20px;
   box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 body[data-theme="dark"] .lockCard{
   background: rgba(17,24,39,0.92);
   border-color: rgba(148,163,184,0.18);
+}
+
+/* Match screenshot sizing */
+.lockCard h2{
+  font-size:32px;
+  letter-spacing:0.2px;
+}
+.lockCard .field input{
+  height:54px;
+  font-size:18px;
+  border-radius:18px;
+}
+.lockCard .grid2 .btn{
+  padding:14px 14px;
+  border-radius:18px;
+  font-size:18px;
 }

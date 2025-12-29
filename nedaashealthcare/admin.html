@@ -10,7 +10,7 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <div class="logo">N</div>
+      <img class="logo" src="./LogoMain-192.png" alt="NEDAAS HealthCare logo" />
       <div>
         <h1>NEDAAS HealthCare</h1>
         <p class="subtitle" data-i18n="admin.subtitle">Admin Dashboard (triage + directory + notes)</p>
@@ -85,6 +85,7 @@
     </section>
   </main>
 
+  <!-- Admin Lock Screen (extra safety) -->
   <div id="adminLock" class="lock hidden">
     <div class="lockCard">
       <h2 data-i18n="login.title">Admin Login</h2>
@@ -92,12 +93,12 @@
 
       <div class="field">
         <label data-i18n="login.user">Username</label>
-        <input id="adminUser" placeholder="admin"/>
+        <input id="adminUser" autocomplete="username" placeholder="admin"/>
       </div>
 
       <div class="field">
         <label data-i18n="login.pass">Password</label>
-        <input id="adminPass" type="password" placeholder="admin"/>
+        <input id="adminPass" type="password" autocomplete="current-password" placeholder="admin"/>
       </div>
 
       <div class="grid2">
